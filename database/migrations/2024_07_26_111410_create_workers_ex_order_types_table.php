@@ -20,6 +20,8 @@ return new class extends Migration {
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();
+
+            $table->unique(['worker_id', 'order_type_id']);
         });
     }
 
