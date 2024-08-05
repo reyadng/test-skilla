@@ -16,12 +16,14 @@ class WorkerController extends Controller
         $this->workerRepository = $workerService;
     }
 
-    public function filterByOrderTypes(FilterWorkersRequest $request): Collection
+    public function filterByOrderTypes(FilterWorkersRequest $request)
     {
-        return $this->workerRepository->filterByOrderType(
+        $workers = $this->workerRepository->filterByOrderType(
             $request->input('order_type_ids'),
             $request->input('start', 0),
             $request->input('limit', 5),
         );
+
+        return $this->response(200, $workers);
     }
 }

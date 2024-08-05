@@ -23,7 +23,7 @@ class OrderController extends Controller
     ) {
     }
 
-    public function store(StoreOrderRequest $request): JsonResponse
+    public function store(StoreOrderRequest $request)
     {
         $validated = $request->validated();
 
@@ -38,7 +38,7 @@ class OrderController extends Controller
                 $validated['type_id'],
             );
 
-            return response()->json(['order' => $order], 201);
+            return $this->response(201, ['order' => $order]);
         } catch (UserNotHavePartnershipException) {
             return $this->error(422, 'User doesn\'t have a partnership');
         }
@@ -54,7 +54,8 @@ class OrderController extends Controller
 
         try {
             $this->orderService->assignWorker(auth()->id(), $orderId, $validated['worker_id'], $validated['amount']);
-            return response()->json();
+
+            return $this->response(200, []);
         } catch (UserNotHavePartnershipException) {
             return $this->error(422, 'User doesn\'t have a partnership');
         } catch (OrderDeclinedException) {
