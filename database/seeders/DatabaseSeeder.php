@@ -7,10 +7,8 @@ use App\Models\User;
 use App\Models\WorkersExOrderType;
 use Laravel\Passport\Client;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Worker;
 use Illuminate\Database\Seeder;
-use Laravel\Passport\Passport;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $client = Client::create([
             'name' => 'Password API client',
-            'secret' => 'D1rIyRHavAc30l0Jb8C1aMeOReK280ScS2hquO4I',
+            'secret' => '$2y$10$yVeFoX3BCEiw8HJ0hYWf5eBaQ5evTpOp94d8qBUxCywdHkJq4OsU2',
             'password_client' => true,
             'personal_access_client' => false,
             'revoked' => false,
@@ -51,8 +49,16 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         WorkersExOrderType::create([
+            'worker_id' => 1,
+            'order_type_id' => 1
+        ]);
+        WorkersExOrderType::create([
             'worker_id' => 3,
             'order_type_id' => 1
+        ]);
+        WorkersExOrderType::create([
+            'worker_id' => 3,
+            'order_type_id' => 3
         ]);
     }
 }
