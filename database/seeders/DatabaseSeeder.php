@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $client = Client::create([
+            'id' => 1,
             'name' => 'Password API client',
-            'secret' => '$2y$10$yVeFoX3BCEiw8HJ0hYWf5eBaQ5evTpOp94d8qBUxCywdHkJq4OsU2',
+            'secret' => 'SsvwFqk2lEDzdlfshuvFImQJO72b9dSxlcZLmpBQ',
             'password_client' => true,
             'personal_access_client' => false,
             'revoked' => false,
