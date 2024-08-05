@@ -15,9 +15,11 @@ interface IWorkerRepository extends HasExistenceCheck
 
     /**
      * @param array $orderTypeIds
+     * @param int $start
+     * @param int $limit
      * @return Collection<int,IWorker>
      */
-    public function filterByOrderType(array $orderTypeIds): Collection;
+    public function filterByOrderType(array $orderTypeIds, int $start, int $limit): Collection;
 
     public function hasExcludedType(int $workerId, int $orderTypeId): bool;
 }

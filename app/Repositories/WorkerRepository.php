@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class WorkerRepository implements IWorkerRepository
 {
-    public function filterByOrderType(array $orderTypeIds): Collection
+    public function filterByOrderType(array $orderTypeIds, int $start, int $limit): Collection
     {
         if (!$orderTypeIds) {
             return new Collection();
@@ -19,13 +19,16 @@ class WorkerRepository implements IWorkerRepository
 
         $uniqueOrderTypeIds = array_unique($orderTypeIds);
         return Worker::query()
-            ->select('w.*', DB::raw('COUNT(ex.worker_id)'))
+            ->select('w.*')
             ->from('workers as w')
             ->leftJoin('workers_ex_order_types as ex', fn($join) => $join
                 ->on('w.id', '=', 'ex.worker_id')
                 ->whereIn('ex.order_type_id', $uniqueOrderTypeIds))
             ->groupBy('w.id')
             ->havingRaw('COUNT(ex.worker_id) < ?', [count($uniqueOrderTypeIds)])
+            ->having('w.id', '>', $start)
+            ->orderBy('w.id')
+            ->limit($limit)
             ->get();
     }
 

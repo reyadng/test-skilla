@@ -18,9 +18,10 @@ class WorkerController extends Controller
 
     public function filterByOrderTypes(FilterWorkersRequest $request): Collection
     {
-        $validated = $request->validated();
-        $orderTypeIds = $validated['order_type_ids'];
-
-        return $this->workerRepository->filterByOrderType($orderTypeIds);
+        return $this->workerRepository->filterByOrderType(
+            $request->input('order_type_ids'),
+            $request->input('start', 0),
+            $request->input('limit', 5),
+        );
     }
 }

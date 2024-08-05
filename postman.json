@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "155dcd97-aac5-433d-b2e5-d6418c95032f",
-		"name": "Skilla Test",
+		"_postman_id": "16f0d3ba-fb48-4a65-afbc-10516bd384ce",
+		"name": "Skilla Test Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1322960"
 	},
@@ -191,7 +191,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/api/workers/filter?order_type_ids[]=1&order_type_ids[]=3",
+					"raw": "{{host}}/api/workers/filter?order_type_ids[]=1&order_type_ids[]=3&limit=3&start=0",
 					"host": [
 						"{{host}}"
 					],
@@ -208,6 +208,14 @@
 						{
 							"key": "order_type_ids[]",
 							"value": "3"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "start",
+							"value": "0"
 						}
 					]
 				}

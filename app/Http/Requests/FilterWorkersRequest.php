@@ -20,6 +20,8 @@ class FilterWorkersRequest extends FormRequest
         return [
             'order_type_ids' => 'required|array',
             'order_type_ids.*' => ['integer', new ModelExists($repository)],
+            'limit' => 'nullable|integer|min:1|max:5',
+            'start' => 'nullable|integer|min:0',
         ];
 
     }
