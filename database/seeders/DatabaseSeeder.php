@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $secret = 'SsvwFqk2lEDzdlfshuvFImQJO72b9dSxlcZLmpBQ';
         $client = Client::create([
             'id' => 1,
             'name' => 'Password API client',
-            'secret' => 'SsvwFqk2lEDzdlfshuvFImQJO72b9dSxlcZLmpBQ',
+            'secret' => '' . $secret . '',
             'password_client' => true,
             'personal_access_client' => false,
             'revoked' => false,
@@ -29,14 +30,16 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Passport client created successfully!');
         $this->command->info('Client ID: ' . $client->id);
-        $this->command->info('Client Secret: ' . $client->secret);
+        $this->command->info('Client Secret: ' . $secret);
 
         $this->call([OrderTypeSeeder::class]);
+        $this->command->info('Order types created');
 
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        $this->command->info('User created');
 
         Order::factory()
             ->count(10)
@@ -44,10 +47,12 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $user->id,
                 'partnership_id' => $user->partnership_id,
             ]);
+        $this->command->info('Orders created');
 
         Worker::factory()
             ->count(10)
             ->create();
+        $this->command->info('Workers created');
 
         WorkersExOrderType::create([
             'worker_id' => 1,
@@ -61,5 +66,6 @@ class DatabaseSeeder extends Seeder
             'worker_id' => 3,
             'order_type_id' => 3
         ]);
+        $this->command->info('Type 1 excluded for worker_id=1. Types 1 and 3 excluded for worker_id=3');
     }
 }
