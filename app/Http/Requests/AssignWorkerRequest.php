@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest
+class AssignWorkerRequest extends FormRequest
 {
 
     /**
@@ -15,11 +15,8 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|string|max:10000',
-            'address' => 'required|string|max:1000',
+            'worker_id' => 'required|integer|exists:workers,id',
             'amount' => 'required|integer|min:0',
-            'type_id' => 'required|integer|exists:order_types,id',
-            'date' => 'required|date_format:Y-m-d',
         ];
 
     }

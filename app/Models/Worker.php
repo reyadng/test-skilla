@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Carbon $updated_at
  *
  * @property Collection|Order[] $orders
- * @property Collection|OrderType[] $orderTypes
+ * @property Collection|OrderType[] $exOrderTypes
  *
  * @package App\Models
  */
@@ -44,7 +44,7 @@ class Worker extends Model
 					->withTimestamps();
 	}
 
-	public function orderTypes():BelongsToMany
+	public function exOrderTypes():BelongsToMany
 	{
 		return $this->belongsToMany(OrderType::class, 'workers_ex_order_types')
 					->withTimestamps();

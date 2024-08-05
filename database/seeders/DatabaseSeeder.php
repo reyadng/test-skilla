@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Order;
 use App\Models\User;
+use App\Models\WorkersExOrderType;
 use Laravel\Passport\Client;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -48,5 +49,10 @@ class DatabaseSeeder extends Seeder
         Worker::factory()
             ->count(10)
             ->create();
+
+        WorkersExOrderType::create([
+            'worker_id' => 3,
+            'order_type_id' => 1
+        ]);
     }
 }

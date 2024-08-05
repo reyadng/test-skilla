@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class UserNotHavePartnership extends Exception
+class OrderNotFoundException extends Exception
 {
     //
 }
