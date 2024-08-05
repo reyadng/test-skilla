@@ -58,6 +58,7 @@ class OrderController extends Controller
 
         try {
             $this->orderService->assignWorker(auth()->id(), $orderId, $validated['worker_id'], $validated['amount']);
+            return response()->json();
         } catch (UserNotHavePartnershipException) {
             return response()->json([
                 'error' => [
@@ -71,7 +72,5 @@ class OrderController extends Controller
         } catch (OrderAlreadyAssignedToThisWorkerException) {
             abort(403, 'Order is already assigned to this worker');
         }
-
-        abort(500);
     }
 }
