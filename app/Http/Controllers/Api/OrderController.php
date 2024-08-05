@@ -40,18 +40,14 @@ class OrderController extends Controller
 
             return response()->json(['order' => $order], 201);
         } catch (UserNotHavePartnershipException) {
-            return response()->json([
-                'error' => [
-                    'message' => 'User doesn\'t have a partnership',
-                ],
-            ], 422);
+            return $this->error(422, 'User doesn\'t have a partnership');
         }
     }
 
     public function assignWorker(AssignWorkerRequest $request, int $orderId)
     {
         if (!$this->orderRepository->exists($orderId)) {
-            abort(404, 'Order not found');
+            return $this->error(404, 'Order not found');
         }
 
         $validated = $request->validated();
@@ -60,17 +56,13 @@ class OrderController extends Controller
             $this->orderService->assignWorker(auth()->id(), $orderId, $validated['worker_id'], $validated['amount']);
             return response()->json();
         } catch (UserNotHavePartnershipException) {
-            return response()->json([
-                'error' => [
-                    'message' => 'User doesn\'t have a partnership',
-                ],
-            ], 422);
+            return $this->error(422, 'User doesn\'t have a partnership');
         } catch (OrderDeclinedException) {
-            abort(403, 'Worker doesn\'t accept orders having such type');
+            return $this->error(403, 'Worker doesn\'t accept orders having such type');
         } catch (OrderNotFoundException) {
-            abort(404, 'Order not found');
+            return $this->error(404, 'Order not found');
         } catch (OrderAlreadyAssignedToThisWorkerException) {
-            abort(403, 'Order is already assigned to this worker');
+            return $this->error(403, 'Order is already assigned to this worker');
         }
     }
 }
