@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\Models\IPartnership;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,12 +17,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @property Collection|Order[] $orders
- * @property Collection|User[] $users
+ * @property Collection<int,Order> $orders
+ * @property Collection<int,User> $users
  *
  * @package App\Models
  */
-class Partnership extends Model
+class Partnership extends Model implements IPartnership
 {
     use HasFactory;
 
@@ -39,5 +40,51 @@ class Partnership extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getCreatedAt(): Carbon
+    {
+        return $this->created_at;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @return Collection<int,Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @return Collection<int,User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 }

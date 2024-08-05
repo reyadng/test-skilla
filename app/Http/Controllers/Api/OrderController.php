@@ -9,22 +9,21 @@ use App\Exceptions\UserNotHavePartnershipException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssignWorkerRequest;
 use App\Http\Requests\StoreOrderRequest;
-use App\Models\Order;
+use App\Repositories\IOrderRepository;
 use App\Services\IOrderService;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
-    private IOrderService $orderService;
 
-    public function __construct(IOrderService $orderService)
-    {
-        $this->orderService = $orderService;
+    public function __construct(
+        private readonly IOrderService $orderService,
+        private readonly IOrderRepository $orderRepository,
+    ) {
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOrderRequest $request)
+    public function store(StoreOrderRequest $request): JsonResponse
     {
         $validated = $request->validated();
 
@@ -33,7 +32,7 @@ class OrderController extends Controller
                 auth()->id(),
                 $validated['description'],
                 $validated['amount'],
-                $validated['date'],
+                Carbon::create($validated['date']),
                 $validated['address'],
 
                 $validated['type_id'],
@@ -51,7 +50,7 @@ class OrderController extends Controller
 
     public function assignWorker(AssignWorkerRequest $request, int $orderId)
     {
-        if (!Order::query()->where(['id' => $orderId])->exists()) {
+        if (!$this->orderRepository->exists($orderId)) {
             abort(404, 'Order not found');
         }
 
@@ -72,5 +71,7 @@ class OrderController extends Controller
         } catch (OrderAlreadyAssignedToThisWorkerException) {
             abort(403, 'Order is already assigned to this worker');
         }
+
+        abort(500);
     }
 }

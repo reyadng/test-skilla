@@ -7,6 +7,7 @@ use App\Exceptions\OrderDeclinedException;
 use App\Exceptions\OrderNotFoundException;
 use App\Exceptions\UserNotHavePartnershipException;
 use App\Models\Order;
+use Carbon\Carbon;
 
 interface IOrderService
 {
@@ -17,12 +18,13 @@ interface IOrderService
         int $userId,
         string $description,
         int $amount,
-        string $date,
+        Carbon $date,
         string $address,
         int $typeId
     ): Order;
 
     /**
+     * Contract: all the models should exist
      * @throws OrderDeclinedException
      * @throws UserNotHavePartnershipException
      * @throws OrderNotFoundException

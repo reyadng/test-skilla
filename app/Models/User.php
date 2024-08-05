@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Repositories\Models\IUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+/**
+ * @property int $partnership_id
+ */
+class User extends Authenticatable implements IUser
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -44,5 +47,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getPartnershipId(): int
+    {
+        return $this->partnership_id;
+    }
+
+    public function setPartnershipId(int $partnershipId): void
+    {
+        $this->partnership_id = $partnershipId;
     }
 }
