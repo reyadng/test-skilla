@@ -37,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Passport::enablePasswordGrant();
         Passport::hashClientSecrets();
+        Passport::ignoreRoutes();
     }
 }
