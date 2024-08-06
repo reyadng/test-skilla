@@ -40,6 +40,11 @@ Route::group([
             'as' => 'tokens.index',
         ]);
 
+        Route::get('/tokens/all', [
+            'uses' => '\App\Http\Controllers\Api\Passport\AuthorizedAccessTokenController@forUserAll',
+            'as' => 'tokens.all',
+        ]);
+
         Route::delete('/tokens/{token_id}', [
             'uses' => 'AuthorizedAccessTokenController@destroy',
             'as' => 'tokens.destroy',
