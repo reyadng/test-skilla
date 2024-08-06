@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $secret = 'SsvwFqk2lEDzdlfshuvFImQJO72b9dSxlcZLmpBQ';
         $client = Client::create([
-            'id' => 1,
+            'id' => '9cb428e3-7a70-4c67-99ad-a5a40d543111',
             'name' => 'Password API client',
             'secret' => '' . $secret . '',
             'password_client' => true,
@@ -30,11 +30,44 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Passport client created successfully!');
         $this->command->info('Client ID: ' . $client->id);
+        $this->command->info('Client Name: ' . $client->name);
         $this->command->info('Client Secret: ' . $secret);
+
+        $client = Client::create([
+            'id' => '9cb428e3-9b0d-449f-968d-9568e7d271c2',
+            'name' => 'Regular API client',
+            'secret' => '' . $secret . '',
+            'password_client' => false,
+            'personal_access_client' => false,
+            'revoked' => false,
+            'redirect' => 'http://localhost',
+        ]);
+
+        $this->command->info('Passport client created successfully!');
+        $this->command->info('Client ID: ' . $client->id);
+        $this->command->info('Client Name: ' . $client->name);
+        $this->command->info('Client Secret: ' . $secret);
+
+        $client = Client::create([
+            'id' => '9cb428e3-bd5f-4f77-851c-7976ce8b42af',
+            'name' => 'Personal API client',
+            'secret' => '' . $secret . '',
+            'password_client' => false,
+            'personal_access_client' => true,
+            'revoked' => false,
+            'redirect' => 'http://localhost',
+        ]);
+
+        $this->command->info('Passport client created successfully!');
+        $this->command->info('Client ID: ' . $client->id);
+        $this->command->info('Client Name: ' . $client->name);
+        $this->command->info('Client Secret: ' . $secret);
+
 
         $this->call([OrderTypeSeeder::class]);
         $this->command->info('Order types created');
 
+        /** @var User $user */
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
