@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "16f0d3ba-fb48-4a65-afbc-10516bd384ce",
+		"_postman_id": "e8688481-36c1-4596-bd6e-1c1622732d98",
 		"name": "Skilla Test Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1322960"
 	},
 	"item": [
 		{
-			"name": "Request Token",
+			"name": "Request Token from Password Client",
 			"event": [
 				{
 					"listen": "test",
@@ -65,7 +65,7 @@
 						},
 						{
 							"key": "client_id",
-							"value": "1",
+							"value": "9cb428e3-7a70-4c67-99ad-a5a40d543111",
 							"type": "text"
 						},
 						{
@@ -89,6 +89,115 @@
 						"api",
 						"passport",
 						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Token from Personal Access Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"var token = response.accessToken;",
+							"",
+							"pm.globals.set(\"accessToken\", token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"personal token\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/passport/personal-access-tokens",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"passport",
+						"personal-access-tokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all tokens (sessions)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/passport/tokens/all",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"passport",
+						"tokens",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Close session / Delete token",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/passport/tokens/:token_id",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"passport",
+						"tokens",
+						":token_id"
+					],
+					"variable": [
+						{
+							"key": "token_id",
+							"value": "token-id"
+						}
 					]
 				}
 			},
