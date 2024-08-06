@@ -11,7 +11,7 @@ cd test-skilla
 https://gist.github.com/reyadng/4309ea2af610a5dbf88660c03707e39b
 
 ```shell
-wget -q https://gist.githubusercontent.com/reyadng/4309ea2af610a5dbf88660c03707e39b/raw/84f559ea9c4d2396c3cb95d62d377b92ca3e384a/.env
+wget -q https://gist.githubusercontent.com/reyadng/4309ea2af610a5dbf88660c03707e39b/raw/ee596413b48faca9297512b3b346b7614de5b68a/.env
 ```
 
 ### Предварительная установка пакетов, чтобы можно было запустить Sail
@@ -54,4 +54,4 @@ docker run --rm \
 Теперь приложение доступно по адресу http://skillatest.com:1111
 
 ### Postman
-В файле postman.json лежит коллекция методов для Postman. Нужно запустить Request Token для получения токена, после чего он автоматически запишется в глобальную переменную. Затем можно обращаться к другим эндпоинтам.
+В файле postman.json лежит коллекция методов для Postman. Нужно запустить "Request Token from Password Client" для получения токена, после чего он автоматически запишется в глобальную переменную. Затем можно обращаться к другим эндпоинтам.
