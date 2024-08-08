@@ -53,8 +53,8 @@ docker run --rm \
 
 ### Билдим фронт для breeze, чтобы можно было использовать OAuth 2.0
 ```shell
-sail npm install
-sail npm run build
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
 ```
 
 Теперь приложение доступно по адресу http://skillatest.com:1111
