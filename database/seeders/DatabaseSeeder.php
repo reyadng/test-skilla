@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $secret = 'SsvwFqk2lEDzdlfshuvFImQJO72b9dSxlcZLmpBQ';
+        $redirect = 'http://localhost';
         $client = Client::create([
             'id' => '9cb428e3-7a70-4c67-99ad-a5a40d543111',
             'name' => 'Password API client',
@@ -25,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'password_client' => true,
             'personal_access_client' => false,
             'revoked' => false,
-            'redirect' => 'http://localhost',
+            'redirect' => $redirect,
         ]);
 
         $this->command->info('Passport client created successfully!');
@@ -40,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'password_client' => false,
             'personal_access_client' => false,
             'revoked' => false,
-            'redirect' => 'http://localhost',
+            'redirect' => $redirect,
         ]);
 
         $this->command->info('Passport client created successfully!');
@@ -55,13 +56,14 @@ class DatabaseSeeder extends Seeder
             'password_client' => false,
             'personal_access_client' => true,
             'revoked' => false,
-            'redirect' => 'http://localhost',
+            'redirect' => $redirect,
         ]);
 
         $this->command->info('Passport client created successfully!');
         $this->command->info('Client ID: ' . $client->id);
         $this->command->info('Client Name: ' . $client->name);
         $this->command->info('Client Secret: ' . $secret);
+        $this->command->info('Redirect URI: ' . $redirect);
 
 
         $this->call([OrderTypeSeeder::class]);

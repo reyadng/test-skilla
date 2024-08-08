@@ -19,12 +19,7 @@ Route::group([
         'middleware' => 'web',
     ]);
 
-    Route::middleware(['auth:api'])->group(function () {
-        Route::post('/token/refresh', [
-            'uses' => 'TransientTokenController@refresh',
-            'as' => 'token.refresh',
-        ]);
-
+    Route::middleware(['web'])->group(function () {
         Route::post('/authorize', [
             'uses' => 'ApproveAuthorizationController@approve',
             'as' => 'authorizations.approve',
@@ -33,6 +28,13 @@ Route::group([
         Route::delete('/authorize', [
             'uses' => 'DenyAuthorizationController@deny',
             'as' => 'authorizations.deny',
+        ]);
+    });
+
+    Route::middleware(['auth:api'])->group(function () {
+        Route::post('/token/refresh', [
+            'uses' => 'TransientTokenController@refresh',
+            'as' => 'token.refresh',
         ]);
 
         Route::get('/tokens', [
